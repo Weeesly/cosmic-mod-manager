@@ -4,7 +4,7 @@ export function Rules(props: RulesProps) {
     return `
 # ${props.title}
 
-Si encuentras alguna violación de estas reglas en nuestro sitio web, te pedimos que nos lo hagas saber. Puedes usar el botón reportar en cualquier proyecto, versión o página de usuario, o enviarnos un correo electrónico a [${props.supportEmail}](mailto:${props.supportEmail}).
+Si encuentras alguna violación de estas reglas en nuestro sitio web, puedes hacérnoslo saber reportándolo en cualquier página de proyecto, versión o página de usuario, o enviarnos un correo electrónico a [${props.supportEmail}](mailto:${props.supportEmail}).
 
 ## 1. Contenido prohibido
 
