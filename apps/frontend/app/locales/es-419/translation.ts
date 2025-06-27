@@ -525,7 +525,7 @@ export default {
         deleteOrg: "Eliminar organización",
         deleteOrgDesc:
             "Eliminar tu organización transferirá todos sus proyectos al propietario de la organización. Este proceso es irreversible.",
-        sureToDeleteOrg: "¿Estás seguro de que quieres eliminar esta organización?",
+        sureToDeleteOrg: "¿Estás seguro de que quieres eliminar tu organización?",
         deleteOrgNamed: (orgName: string) => `Eliminar organización ${orgName}`,
         deletionWarning: "Esto eliminará esta organización para siempre (de verdad, para siempre).",
 
@@ -554,7 +554,7 @@ export default {
         searchCollections: "Buscar colecciones",
         editingCollection: "Editando colección",
         deleteCollection: "Eliminar colección",
-        sureToDeleteCollection: "¿Estás seguro de que quieres eliminar esta colección?",
+        sureToDeleteCollection: "¿Estás seguro de que quieres eliminar tu colección?",
         followedProjects: "Proyectos seguidos",
         followedProjectsDesc: "Colección generada automáticamente con todos los proyectos que sigues.",
     },
