@@ -26,27 +26,29 @@ export default {
         all: "Todo",
         noResults: "Sin resultados",
         more: "Más",
+        search: "Buscar...",
+        you: "Tú",
+        closed: "Cerrado",
+        open: "Abrir",
     },
-
     count: {
-        downloads: (count: number) => {
+        downloads: (count, formattedCount) => {
             const downloads = Pluralize(count, "descarga", "descargas");
-            return ["", count, downloads];
+            return [formattedCount, " ", downloads];
         },
-        followers: (count: number) => {
+        followers: (count, formattedCount) => {
             const followers = Pluralize(count, "seguidor", "seguidores");
-            return ["", count, followers];
+            return [formattedCount, " ", followers];
         },
-        projects: (count: number) => {
+        projects: (count, formattedCount) => {
             const projects = Pluralize(count, "proyecto", "proyectos");
-            return ["", count, projects];
+            return [formattedCount, " ", projects];
         },
-        members: (count: number) => {
+        members: (count, formattedCount) => {
             const members = Pluralize(count, "miembro", "miembros");
-            return ["", count, members];
+            return [formattedCount, " ", members];
         },
     },
-
     navbar: {
         mod: "mod",
         mods: "mods",
@@ -66,39 +68,53 @@ export default {
         profile: "Perfil",
         skipToMainContent: "Ir al contenido principal",
     },
-
     homePage: {
-        title: (projectType: string) => ["El lugar para ", projectType, " de Cosmic\u00A0Reach"],
+        title: (projectType) => [
+            "El lugar para ",
+            projectType,
+            " de Cosmic Reach",
+        ],
         desc: "El mejor lugar para tus mods de Cosmic Reach. Descubre, juega y crea contenido, todo en un solo sitio.",
         exploreMods: "Explorar mods",
     },
-
     auth: {
         email: "Correo electrónico",
         password: "Contraseña",
         changePassword: "Cambiar contraseña",
         loginUsing: "Inicia sesión usando:",
-        dontHaveAccount: "¿No tienes una cuenta?",
-        alreadyHaveAccount: "¿Ya tienes una cuenta?",
-        forgotPassword: "¿Olvidaste tu contraseña?",
+        dontHaveAccount: (signup) => [
+            "¿No tienes una cuenta? ",
+            signup,
+        ],
+        alreadyHaveAccount: (login) => [
+            "¿Ya tienes una cuenta? ",
+            login,
+        ],
+        forgotPassword: (changePassword) => [
+            "¿Olvidaste tu contraseña? ",
+            changePassword,
+        ],
         signupWithProviders: "Regístrate usando cualquiera de los proveedores de autenticación:",
-        aggrement: "Al crear una cuenta, aceptas nuestros [Términos](/legal/terms) y [Política de Privacidad](/legal/privacy).",
+        agreement: (terms, privacyPolicy) => [
+            "Al crear una cuenta, aceptas nuestros ",
+            terms,
+            " y ",
+            privacyPolicy,
+            ".",
+        ],
         invalidCode: "Código inválido o expirado",
         didntRequest: "¿No solicitaste esto?",
         checkSessions: "Revisar sesiones iniciadas",
         confirmNewPass: "Confirmar nueva contraseña",
-        confirmNewPassDesc:
-            "Recientemente se añadió una nueva contraseña a tu cuenta y está pendiente de confirmación. Confirma abajo si fuiste tú.",
+        confirmNewPassDesc: "Recientemente se añadió una nueva contraseña a tu cuenta y está pendiente de confirmación. Confirma abajo si fuiste tú.",
         newPass: "Nueva contraseña",
         newPass_label: "Ingresa tu nueva contraseña",
         confirmPass: "Confirmar contraseña",
         confirmPass_label: "Vuelve a ingresar tu contraseña",
         deleteAccount: "Eliminar cuenta",
-        deleteAccountDesc:
-            "Al eliminar tu cuenta, se borrarán todos tus datos de nuestra base de datos. Este proceso es irreversible.",
+        deleteAccountDesc: "Al eliminar tu cuenta, se borrarán todos tus datos de nuestra base de datos. Este proceso es irreversible.",
         enterEmail: "Ingresa tu dirección de correo electrónico",
     },
-
     settings: {
         account: "Cuenta",
         preferences: "Preferencias",
@@ -122,26 +138,77 @@ export default {
         addPassDialogDesc: "Podrás usar esta contraseña para iniciar sesión en tu cuenta",
         manageProviders: "Gestionar proveedores",
         linkedProviders: "Proveedores de autenticación vinculados",
-        linkProvider: (provider: string) => `Vincular ${provider} a tu cuenta`,
-        link: "Vincular", // Verb
-        sureToDeleteAccount: "¿Estás seguro de que quieres eliminar tu cuenta?",
+        linkProvider: (provider) => `Vincular ${provider} a tu cuenta`,
+        link: "Vincular",
+        sureToDeleteAccount: "¿Seguro que quieres eliminar tu cuenta?",
         profileInfo: "Información del perfil",
-        profileInfoDesc: (site: string) => `Tu información de perfil es visible públicamente en ${site}.`,
+        profileInfoDesc: (site) => `Tu información de perfil es visible públicamente en ${site}.`,
         profilePic: "Foto de perfil",
         bio: "Biografía",
         bioDesc: "Una breve descripción para contarle a todos un poco sobre ti.",
         visitYourProfile: "Visitar tu perfil",
+        profilePageBg: "Fondo de la página de perfil",
+        profilePageBgDesc: "Esta imagen/video se utilizará como fondo personalizado para tu página de perfil",
         showIpAddr: "Mostrar direcciones IP",
-        sessionsDesc:
-            "Estos dispositivos están actualmente conectados a tu cuenta. Puedes revocar cualquier sesión en cualquier momento. Si ves algo que no reconoces, revoca la sesión inmediatamente y cambia la contraseña del proveedor de autenticación asociado.",
+        sessionsDesc: "Estos dispositivos están actualmente conectados a tu cuenta. Puedes revocar cualquier sesión en cualquier momento. Si ves algo que no reconoces, revoca la sesión inmediatamente y cambia la contraseña del proveedor de autenticación asociado.",
         ipHidden: "IP oculta",
-        lastAccessed: (when: string) => `Último acceso ${when}`,
-        created: (when: string) => `Creado ${when}`, // eg: Created a month ago
-        sessionCreatedUsing: (providerName: string) => `Sesión creada usando ${providerName}`,
+        lastAccessed: (when) => `Último acceso ${when}`,
+        created: (when) => `Creado ${when}`,
+        sessionCreatedUsing: (providerName) => `Sesión creada usando ${providerName}`,
         currSession: "Sesión actual",
         revokeSession: "Revocar sesión",
+        colorTheme: "Tema de color",
+        colorThemeDesc: "Selecciona tu tema de color preferido.",
+        system: "Sistema",
+        create_a_PAT: "Crear un PAT",
+        createPAT_long: "Creando un token de acceso personal",
+        createPAT: "Crear PAT",
+        expirationData: "Fecha de expiración",
+        editPAT: "Editar PAT",
+        editPAT_long: "Editar token de acceso personal",
+        deletePAT: "Eliminar PAT",
+        deletePAT_long: "Eliminar token de acceso personal",
+        sureToDeletePAT: (patName) => `¿Seguro que quieres el PAT **\`${patName}\`**?`,
+        apiScopes: {
+            user_read_email: "Leer correo electrónico del usuario",
+            user_read: "Leer datos del usuario",
+            user_write: "Modificar datos del usuario",
+            user_delete: "Eliminar cuenta del usuario",
+            user_auth_write: "Gestionar autenticación",
+            notification_read: "Leer notificaciones",
+            notification_write: "Modificar notificaciones",
+            notification_delete: "Eliminar notificaciones",
+            user_session_read: "Leer sesiones del usuarios",
+            user_session_delete: "Eliminar sesiones",
+            analytics_read: "Leer análisis",
+            project_create: "Crear proyectos",
+            project_read: "Leer proyectos",
+            project_write: "Modificar proyectos",
+            project_delete: "Eliminar proyectos",
+            version_create: "Subir versiones",
+            version_read: "Leer versiones",
+            version_write: "Modificar versiones",
+            version_delete: "Eliminar versiones",
+            organization_create: "Crear organizaciones",
+            organization_read: "Leer organizaciones",
+            organization_write: "Modificar organizaciones",
+            organization_delete: "Eliminar organizaciones",
+            collection_create: "Crear colecciones",
+            collection_read: "Leer colecciones",
+            collection_write: "Modificar colecciones",
+            collection_delete: "Eliminar colecciones",
+            report_create: "Crear reportes",
+            report_read: "Leer reportes",
+            report_write: "Modificar reportes",
+            report_delete: "Eliminar reportes",
+            thread_read: "Leer conversaciones",
+            thread_write: "Modificar conversaciones",
+            pat_create: "Crear tokens de acceso",
+            pat_read: "Leer tokens de acceso",
+            pat_write: "Modificar tokens de acceso",
+            pat_delete: "Eliminar tokens de acceso",
+        },
     },
-
     dashboard: {
         dashboard: "Panel de control",
         overview: "Vista general",
@@ -156,9 +223,9 @@ export default {
         manage: "Gestionar",
         seeAll: "Ver todo",
         viewNotifHistory: "Ver historial de notificaciones",
-        noUnreadNotifs: "No tienes notificaciones no leídas.",
+        noUnreadNotifs: "No tienes notificaciones sin leer.",
         totalDownloads: "Descargas totales",
-        fromProjects: (count: number) => {
+        fromProjects: (count) => {
             const projects = Pluralize(count, "proyecto", "proyectos");
             return `de ${count} ${projects}`;
         },
@@ -170,6 +237,19 @@ export default {
         received: "Recibido",
         history: "Historial",
         notifHistory: "Historial de notificaciones",
+        invitedToJoin: (user, team) => [
+            user,
+            " te invitó a unirte a",
+            team,
+        ],
+        projectStatusUpdated: (project, oldStatus, newStatus) => [
+            "Los moderadores actualizaron el estado de",
+            project,
+            " de",
+            oldStatus,
+            " a",
+            newStatus,
+        ],
         createProjectInfo: "No tienes proyectos. Haz clic en el botón de arriba para crear uno.",
         type: "Tipo",
         status: "Estado",
@@ -185,53 +265,46 @@ export default {
         enterCollectionName: "Ingresa el nombre de la colección",
         createCollection: "Crear una colección",
     },
-
     search: {
-        // Search labels
         project: "Buscar proyectos",
         mod: "Buscar mods",
-        "resource-pack": "Buscar paquetes de recursos",
+        resource-pack: "Buscar paquetes de recursos",
         shader: "Buscar shaders",
         plugin: "Buscar plugins",
         modpack: "Buscar paquetes de mods",
         datamod: "Buscar datamods",
         world: "Buscar mundos",
-
-        // Sorting methods
         showPerPage: "Mostrar por página",
         sortBy: "Ordenar por",
         relevance: "Relevancia",
-        // ? New string
-        // trending: "Trending",
         downloads: "Descargas",
         follow_count: "Seguidores",
         recently_updated: "Actualizado recientemente",
         recently_published: "Publicado recientemente",
-
-        // View types
         view: {
             gallery: "Vista de galería",
             list: "Vista de lista",
         },
-
         filters: "Filtros",
         searchFilters: "Filtros de búsqueda",
         loaders: "Cargadores",
         gameVersions: "Versiones del juego",
         channels: "Canales",
         environment: "Entorno",
-        category: "Categorías", // The key is kept singular just for ease of acess, the string is plural
-        feature: "Características", // __
-        resolution: "Resoluciones", // __
+        category: "Categorías",
+        feature: "Características",
+        resolution: "Resoluciones",
         performance_impact: "Impacto en el rendimiento",
         license: "Licencia",
         openSourceOnly: "Solo código abierto",
         clearFilters: "Limpiar todos los filtros",
-
         tags: tags,
-        searchItemAuthor: (project, author) => [project, " por ", author],
+        searchItemAuthor: (project, author) => [
+            project,
+            " por ",
+            author,
+        ],
     },
-
     project: {
         compatibility: "Compatibilidad",
         environments: "Entornos",
@@ -244,9 +317,13 @@ export default {
         organization: "Organización",
         project: "Proyecto",
         details: "Detalles",
-        licensed: (license: string) => ["Con licencia", license, ""],
-        updatedAt: (when: string) => `Actualizado ${when}`, // eg: Updated 3 days ago
-        publishedAt: (when: string) => `Publicado ${when}`, // eg: Published 3 days ago
+        licensed: (license) => [
+            "Con licencia",
+            license,
+            "",
+        ],
+        updatedAt: (when) => `Actualizado ${when}`,
+        publishedAt: (when) => `Publicado ${when}`,
         gallery: "Galería",
         changelog: "Registro de cambios",
         versions: "Versiones",
@@ -254,56 +331,54 @@ export default {
         uploadNewImg: "Subir una nueva imagen a la galería",
         uploadImg: "Subir imagen a la galería",
         galleryOrderingDesc: "Las imágenes con un orden más alto se mostrarán primero.",
-        featuredGalleryImgDesc:
-            "Solo se puede destacar una imagen de la galería, la cual aparecerá tanto en los resultados de búsqueda como en la tarjeta del proyecto.",
+        featuredGalleryImgDesc: "Solo se puede destacar una imagen de la galería, la cual aparecerá tanto en los resultados de búsqueda como en la tarjeta del proyecto.",
         addGalleryImg: "Añadir imagen a la galería",
         featureImg: "Destacar imagen",
         unfeatureImg: "Quitar imagen destacada",
-        sureToDeleteImg: "¿Estás seguro de que quieres eliminar esta imagen de la galería?",
+        sureToDeleteImg: "¿Seguro que quieres eliminar esta imagen de la galería?",
         deleteImgDesc: "Esto eliminará esta imagen de la galería para siempre (de verdad, para siempre).",
         editGalleryImg: "Editar imagen de la galería",
         currImage: "Imagen actual",
-
-        // Version
         uploadVersion: "Subir una versión",
         uploadNewVersion: "Subir una nueva versión del proyecto",
         showDevVersions: "Mostrar versiones en desarrollo",
         noProjectVersions: "No se encontraron versiones del proyecto",
         stats: "Estadísticas",
-        published: "Publicado", // Used for table headers
-        downloads: "Descargas", // Used for table headers
+        published: "Publicado",
+        downloads: "Descargas",
         openInNewTab: "Abrir en una nueva pestaña",
         copyLink: "Copiar enlace",
-        doesNotSupport: (project: string, version: string, loader: string) => {
+        doesNotSupport: (project, version, loader) => {
             return `${project} no es compatible con la versión ${version} de ${loader}`;
         },
-        downloadProject: (project: string) => `Descargar ${project}`,
-        gameVersion: "Versión del juego:",
+        downloadItem: (project) => `Descargar ${project}`,
+        gameVersion: (version) => [
+            "Versión del juego: ",
+            version,
+        ],
         selectGameVersion: "Seleccionar versión del juego",
-        platform: "Plataforma:",
+        platform: (loader) => [
+            "Plataforma: ",
+            loader,
+        ],
         selectPlatform: "Seleccionar plataforma",
-        onlyAvailableFor: (project: string, platform: string) => `${project} solo está disponible para ${platform}`,
-        noVersionsAvailableFor: (gameVersion: string, loader: string) =>
-            `No hay versiones disponibles para la ${gameVersion} en ${loader}`,
+        onlyAvailableFor: (project, platform) => `${project} solo está disponible para ${platform}`,
+        noVersionsAvailableFor: (gameVersion, loader) => `No hay versiones disponibles para la ${gameVersion} en ${loader}`,
         declinedInvitation: "Invitación rechazada",
-        teamInvitationTitle: (teamType: string) => `Invitación para unirse a un equipo (${teamType})`, // teamType = organization | project
-        teamInviteDesc: (teamType: string, role: string) =>
-            `Te invitaron a ser miembro de este equipo (${teamType}) con el rol de '${role}'.`,
-
+        teamInvitationTitle: (teamType) => `Invitación para unirse a un equipo (${teamType})`,
+        teamInviteDesc: (teamType, role) => `Te invitaron a ser miembro de este equipo (${teamType}) con el rol de '${role}'.`,
         browse: {
             mod: "Explorar mods",
             datamod: "Explorar datamods",
-            "resource-pack": "Explorar paquetes de recursos",
+            resource-pack: "Explorar paquetes de recursos",
             shader: "Explorar shaders",
             modpack: "Explorar paquetes de mods",
             plugin: "Explorar plugins",
             world: "Explorar mundos",
         },
-
         rejected: "Rechazado",
         withheld: "Suspendido",
-        archivedMessage: (project: string) =>
-            `${project} ha sido archivado. No recibirá más actualizaciones a menos que el autor decida desarchivarlo.`,
+        archivedMessage: (project) => `${project} ha sido archivado. No recibirá más actualizaciones a menos que el autor decida desarchivarlo.`,
         publishingChecklist: {
             required: "Requerido",
             suggestion: "Sugerencia",
@@ -321,22 +396,17 @@ export default {
             selectTags: "Seleccionar etiquetas",
             selectTagsDesc: "Selecciona todas las etiquetas que correspondan a tu proyecto.",
             addExtLinks: "Añadir enlaces externos",
-            addExtLinksDesc:
-                "Añade enlaces relevantes, como fuentes, un sitio web para rastrear errores o una invitación de Discord.",
+            addExtLinksDesc: "Añade enlaces relevantes, como fuentes, un sitio web para rastrear errores o una invitación de Discord.",
             selectLicense: "Seleccionar licencia",
-            selectLicenseDesc: (projectType: string) => `Selecciona la licencia bajo la cual se distribuye tu ${projectType}.`,
+            selectLicenseDesc: (projectType) => `Selecciona la licencia bajo la cual se distribuye tu ${projectType}.`,
             selectEnv: "Seleccionar entornos compatibles",
-            selectEnvDesc: (projectType: string) =>
-                `Selecciona si el ${projectType} funciona en el lado del cliente o del servidor.`,
+            selectEnvDesc: (projectType) => `Selecciona si el ${projectType} funciona en el lado del cliente o del servidor.`,
             requiredStepsDesc: "Todo lo que está marcado con un asterisco (*) es obligatorio",
             submitForReview: "Enviar para revisión",
-            submitForReviewDesc:
-                "Tu proyecto solo es visible para los miembros del proyecto. Debe ser revisado por moderadores para ser publicado.",
+            submitForReviewDesc: "Tu proyecto solo es visible para los miembros del proyecto. Debe ser revisado por moderadores para ser publicado.",
             resubmitForReview: "Volver a enviar para revisión",
-            resubmit_ApprovalRejected:
-                "Tu proyecto ha sido rechazado por nuestro moderador. En la mayoría de los casos, puedes volver a enviarlo para revisión después de atender el mensaje del moderador.",
-            resubmit_ProjectWithheld:
-                "Tu proyecto ha sido suspendido por nuestro moderador. En la mayoría de los casos, puedes volver a enviarlo para revisión después de atender el mensaje del moderador.",
+            resubmit_ApprovalRejected: "Tu proyecto ha sido rechazado por nuestro moderador. En la mayoría de los casos, puedes volver a enviarlo para revisión después de atender el mensaje del moderador.",
+            resubmit_ProjectWithheld: "Tu proyecto ha sido suspendido por nuestro moderador. En la mayoría de los casos, puedes volver a enviarlo para revisión después de atender el mensaje del moderador.",
             visit: {
                 versionsPage: "Visitar la página de versiones",
                 descriptionSettings: "Visitar los ajustes de descripción",
@@ -349,10 +419,10 @@ export default {
             },
         },
     },
-
     version: {
+        version: "Versión",
         deleteVersion: "Eliminar versión",
-        sureToDelete: "¿Estás seguro de que quieres eliminar esta versión?",
+        sureToDelete: "¿Seguro que quieres eliminar esta versión?",
         deleteDesc: "Esto eliminará esta versión para siempre (de verdad, para siempre).",
         enterVersionTitle: "Ingresa el título de la versión...",
         feature: "Destacar versión",
@@ -365,22 +435,20 @@ export default {
         cantAddCurrProject: "No puedes añadir el proyecto actual como dependencia",
         cantAddDuplicateDep: "No puedes añadir la misma dependencia dos veces",
         addDep: "Añadir dependencia",
-        enterProjectId: "Ingresa el ID/Slug del proyecto",
-        enterVersionId: "Ingresa el ID/Slug de la versión",
+        enterProjectId: "Ingresa el ID/slug del proyecto",
+        enterVersionId: "Ingresa el ID/slug de la versión",
         dependencies: "Dependencias",
         files: "Archivos",
-
         depencency: {
             required: "Requerida",
             optional: "Opcional",
             incompatible: "Incompatible",
             embedded: "Incorporada",
-            required_desc: (version: string) => `La versión ${version} es requerida`,
-            optional_desc: (version: string) => `La versión ${version} es opcional`,
-            incompatible_desc: (version: string) => `La versión ${version} es incompatible`,
-            embedded_desc: (version: string) => `La versión ${version} está incorporada`,
+            required_desc: (version) => `La versión ${version} es requerida`,
+            optional_desc: (version) => `La versión ${version} es opcional`,
+            incompatible_desc: (version) => `La versión ${version} es incompatible`,
+            embedded_desc: (version) => `La versión ${version} está incorporada`,
         },
-
         primary: "Principal",
         noPrimaryFile: "No se ha elegido un archivo principal",
         chooseFile: "Elegir archivo",
@@ -390,18 +458,24 @@ export default {
         selectFiles: "Seleccionar archivos",
         primaryFileRequired: "Se requiere un archivo principal",
         metadata: "Metadatos",
-        devReleasesNote:
-            "NOTA: Las versiones en desarrollo antiguas serán eliminadas automáticamente después de que se publique una nueva versión en desarrollo.",
+        devReleasesNote: "NOTA: Las versiones en desarrollo antiguas serán eliminadas automáticamente después de que se publique una nueva versión en desarrollo.",
+        searchOrEnterRange: "Buscar o ingresa un rango...",
+        applyChanges: "Aplicar cambios",
+        currExprHasNoEffect: "La expresión actual no tiene efecto sobre los valores seleccionados.",
         publicationDate: "Fecha de publicación",
         publisher: "Editor",
         versionID: "ID de versión",
         copySha1: "Copiar hash SHA-1",
         copySha512: "Copiar hash SHA-512",
         copyFileUrl: "Copiar URL del archivo",
-
-        publishedBy: (version, author, publish_date) => [version, " por ", author, " el ", publish_date],
+        publishedBy: (version, author, publish_date) => [
+            version,
+            " por ",
+            author,
+            " el ",
+            publish_date,
+        ],
     },
-
     projectSettings: {
         settings: "Ajustes del proyecto",
         general: "General",
@@ -412,42 +486,38 @@ export default {
         upload: "Subir",
         externalLinks: "Enlaces externos",
         issueTracker: "Rastreador de problemas",
-        issueTrackerDesc:
-            "Un sitio donde los usuarios puedan informar sobre errores o discutir temas relacionados con tu proyecto.",
+        issueTrackerDesc: "Un sitio donde los usuarios puedan informar sobre errores o discutir temas relacionados con tu proyecto.",
         sourceCode: "Código fuente",
         sourceCodeDesc: "Una página o repositorio que contiene el código fuente de tu proyecto.",
         wikiPage: "Página wiki",
         wikiPageDesc: "Una página que contiene información, documentación y ayuda para el proyecto.",
         discordInvite: "Invitación a Discord",
         discordInviteDesc: "Un enlace de invitación a tu servidor de Discord.",
-        licenseDesc: (projectType: string) =>
-            `Es muy importante elegir una licencia adecuada para tu ${projectType}. Puedes elegir una de nuestra lista o proporcionar una licencia personalizada. También puedes proporcionar una URL personalizada para tu licencia elegida; de lo contrario, se mostrará el texto de la licencia.`,
-        customLicenseDesc:
-            "Ingresa un [identificador de licencia SPDX](https://spdx.org/licenses) válido en el lugar indicado. Si tu licencia no tiene un identificador SPDX (por ejemplo, si creaste la licencia tú mismo o es específica de Cosmic Reach), simplemente marca la casilla e ingresa el nombre de la licencia.",
+        licenseDesc: (projectType) => `Es muy importante elegir una licencia adecuada para tu ${projectType}. Puedes elegir una de nuestra lista o proporcionar una licencia personalizada. También puedes proporcionar una URL personalizada para tu licencia elegida; de lo contrario, se mostrará el texto de la licencia.`,
+        customLicenseDesc: "Ingresa un [identificador de licencia SPDX](https://spdx.org/licenses) válido en el lugar indicado. Si tu licencia no tiene un identificador SPDX (por ejemplo, si creaste la licencia tú mismo o es específica de Cosmic Reach), simplemente marca la casilla e ingresa el nombre de la licencia.",
         selectLicense: "Seleccionar licencia",
+        searchAllLicenses: (count) => `Buscar ${count} licencias`,
         custom: "Personalizada",
         licenseName: "Nombre de la licencia",
         licenseUrl: "URL de la licencia (opcional)",
         spdxId: "Identificador SPDX",
         doesntHaveSpdxId: "La licencia no tiene un identificador SPDX",
-        tagsDesc: (projectType: string) =>
-            `Es importante etiquetar correctamente para ayudar a las personas a encontrar tu ${projectType}. Asegúrate de seleccionar todas las etiquetas que correspondan.`,
+        tagsDesc: (projectType) => `Es importante etiquetar correctamente para ayudar a las personas a encontrar tu ${projectType}. Asegúrate de seleccionar todas las etiquetas que correspondan.`,
         featuredCategories: "Categorías destacadas",
-        featuredCategoriesDesc: (count: number) => `Puedes destacar hasta ${count} de tus etiquetas más relevantes.`,
+        featuredCategoriesDesc: (count) => `Puedes destacar hasta ${count} de tus etiquetas más relevantes.`,
         selectAtLeastOneCategory: "Selecciona al menos una categoría para destacar.",
         projectInfo: "Información del proyecto",
         clientSide: "Del lado del cliente",
-        clientSideDesc: (projectType: string) => `Selecciona si tu ${projectType} tiene funcionalidad en el lado del cliente.`,
+        clientSideDesc: (projectType) => `Selecciona si tu ${projectType} tiene funcionalidad en el lado del cliente.`,
         serverSide: "Del lado del servidor",
-        serverSideDesc: (projectType: string) => `Selecciona si tu ${projectType} tiene funcionalidad en el servidor lógico.`,
+        serverSideDesc: (projectType) => `Selecciona si tu ${projectType} tiene funcionalidad en el servidor lógico.`,
         unknown: "Desconocido",
         clientOrServer: "Cliente o servidor",
         clientAndServer: "Cliente y servidor",
         required: "Requerido",
         optional: "Opcional",
         unsupported: "No compatible",
-        visibilityDesc:
-            "Los proyectos listados y archivados son visibles en la búsqueda. Los proyectos no listados están publicados, pero no visibles en la búsqueda ni en los perfiles de los usuarios. Los proyectos privados solo son accesibles por los miembros del proyecto.",
+        visibilityDesc: "Los proyectos listados y archivados son visibles en la búsqueda. Los proyectos no listados están publicados, pero no visibles en la búsqueda ni en los perfiles de los usuarios. Los proyectos privados solo son accesibles por los miembros del proyecto.",
         ifApproved: "Si es aprobado por los moderadores:",
         visibleInSearch: "Visible en la búsqueda",
         visibleOnProfile: "Visible en el perfil",
@@ -459,12 +529,10 @@ export default {
         unlisted: "No listado",
         archived: "Archivado",
         deleteProject: "Eliminar proyecto",
-        deleteProjectDesc: (site: string) =>
-            `Elimina tu proyecto de los servidores de ${site} y de la búsqueda. ¡Al hacer clic aquí, eliminarás tu proyecto, así que ten mucho cuidado!`,
-        sureToDeleteProject: "¿Estás seguro de que quieres eliminar tu proyecto?",
-        deleteProjectDesc2:
-            "Si procedes, todas las versiones y los datos adjuntos se eliminarán de nuestros servidores. Esto podría afectar a otros proyectos, así que ten cuidado.",
-        typeToVerify: (projectName: string) => `Para verificar, escribe **${projectName}** abajo:`,
+        deleteProjectDesc: (site) => `Elimina tu proyecto de los servidores de ${site} y de la búsqueda. ¡Al hacer clic aquí, eliminarás tu proyecto, así que ten mucho cuidado!`,
+        sureToDeleteProject: "¿Seguro que quieres eliminar tu proyecto?",
+        deleteProjectDesc2: "Si procedes, todas las versiones y los datos adjuntos se eliminarán de nuestros servidores. Esto podría afectar a otros proyectos, así que ten cuidado.",
+        typeToVerify: (projectName) => `Para verificar, escribe **${projectName}** abajo:`,
         typeHere: "Escribe aquí...",
         manageMembers: "Gestionar miembros",
         leftProjectTeam: "Has salido del equipo",
@@ -472,7 +540,7 @@ export default {
         leaveProject: "Salir del proyecto",
         leaveOrgDesc: "Eliminarte como miembro de esta organización.",
         leaveProjectDesc: "Eliminarte como miembro de este proyecto.",
-        sureToLeaveTeam: "¿Estás seguro de que quieres salir de este equipo?",
+        sureToLeaveTeam: "¿Seguro que quieres salir de este equipo?",
         cantManageInvites: "No tienes acceso para gestionar las invitaciones de miembros",
         inviteMember: "Invitar a un miembro",
         inviteProjectMemberDesc: "Ingresa el nombre de usuario de la persona que deseas invitar a ser miembro de este proyecto.",
@@ -499,36 +567,29 @@ export default {
         removeMember: "Eliminar miembro",
         transferOwnership: "Transferir propiedad",
         overrideValues: "Sobrescribir valores",
-        overrideValuesDesc:
-            "Sobrescribe los valores predeterminados de la organización y asigna permisos y roles personalizados a este usuario en el proyecto.",
-        projectNotManagedByOrg:
-            "Este proyecto no está gestionado por una organización. Si eres miembro de alguna organización, puedes transferir la gestión a una de ellas.",
+        overrideValuesDesc: "Sobrescribe los valores predeterminados de la organización y asigna permisos y roles personalizados a este usuario en el proyecto.",
+        projectNotManagedByOrg: "Este proyecto no está gestionado por una organización. Si eres miembro de alguna organización, puedes transferir la gestión a una de ellas.",
         transferManagementToOrg: "Transferir gestión",
         selectOrg: "Seleccionar organización",
-        projectManagedByOrg: (orgName: string) =>
-            `Este proyecto está gestionado por ${orgName}. Los valores predeterminados para los permisos de los miembros se establecen en los ajustes de la organización. Puedes sobrescribirlos a continuación.`,
+        projectManagedByOrg: (orgName) => `Este proyecto está gestionado por ${orgName}. Los valores predeterminados para los permisos de los miembros se establecen en los ajustes de la organización. Puedes sobrescribirlos a continuación.`,
         removeFromOrg: "Eliminar de la organización",
         memberRemoved: "Miembro eliminado con éxito",
-        sureToRemoveMember: (memberName: string) => `¿Estás seguro de que quieres eliminar a ${memberName} de este equipo?`,
+        sureToRemoveMember: (memberName) => `¿Seguro que quieres eliminar a ${memberName} de este equipo?`,
         ownershipTransfered: "Propiedad transferida con éxito",
-        sureToTransferOwnership: (memberName: string) => `¿Estás seguro de que quieres transferir la propiedad a ${memberName}?`,
+        sureToTransferOwnership: (memberName) => `¿Seguro que quieres transferir la propiedad a ${memberName}?`,
     },
-
     organization: {
         orgDoesntHaveProjects: "Esta organización no tiene proyectos aún.",
         manageProjects: "Gestionar proyectos",
         orgSettings: "Ajustes de la organización",
-        transferProjectsTip:
-            "Puedes transferir tus proyectos existentes a esta organización desde: Ajustes del proyecto > Miembros",
+        transferProjectsTip: "Puedes transferir tus proyectos existentes a esta organización desde: Ajustes del proyecto > Miembros",
         noProjects_CreateOne: "Esta organización no tiene proyectos. Haz clic en el botón de arriba para crear uno.",
         orgInfo: "Información de la organización",
         deleteOrg: "Eliminar organización",
-        deleteOrgDesc:
-            "Eliminar tu organización transferirá todos sus proyectos al propietario de la organización. Este proceso es irreversible.",
-        sureToDeleteOrg: "¿Estás seguro de que quieres eliminar tu organización?",
-        deleteOrgNamed: (orgName: string) => `Eliminar organización ${orgName}`,
+        deleteOrgDesc: "Eliminar tu organización transferirá todos sus proyectos al propietario de la organización. Este proceso es irreversible.",
+        sureToDeleteOrg: "¿Seguro que quieres eliminar esta organización?",
+        deleteOrgNamed: (orgName) => `Eliminar organización ${orgName}`,
         deletionWarning: "Esto eliminará esta organización para siempre (de verdad, para siempre).",
-
         perms: {
             edit_details: "Editar detalles",
             manage_invites: "Gestionar invitaciones",
@@ -540,25 +601,23 @@ export default {
             edit_member_default_permissions: "Editar permisos predeterminados de miembro",
         },
     },
-
     user: {
         admin: "Administrador",
         moderator: "Moderador",
-        doesntHaveProjects: (user: string) => `${user} no tiene proyectos aún.`,
-        isntPartOfAnyOrgs: (user: string) => `${user} no es miembro de ninguna organización.`,
-        joined: (when: string) => `Se unió ${when}`, // eg: Joined 2 months ago
+        doesntHaveProjects: (user) => `${user} no tiene proyectos aún.`,
+        isntPartOfAnyOrgs: (user) => `${user} no es miembro de ninguna organización.`,
+        joined: (when) => `Se unió ${when}`,
+        accountDeleted: "La cuenta del usuario fue eliminada.",
     },
-
     collection: {
         curatedBy: "Hecha por",
         searchCollections: "Buscar colecciones",
         editingCollection: "Editando colección",
         deleteCollection: "Eliminar colección",
-        sureToDeleteCollection: "¿Estás seguro de que quieres eliminar tu colección?",
+        sureToDeleteCollection: "¿Seguro que quieres eliminar esta colección?",
         followedProjects: "Proyectos seguidos",
         followedProjectsDesc: "Colección generada automáticamente con todos los proyectos que sigues.",
     },
-
     footer: {
         resources: "Recursos",
         docs: "Documentación",
@@ -567,50 +626,87 @@ export default {
         socials: "Redes sociales",
         about: "Acerca de",
         changeTheme: "Cambiar tema",
-        siteOfferedIn: (site: string) => `${site} ofrecido en:`,
+        siteOfferedIn: (site) => `${site} ofrecido en:`,
     },
-
     legal: {
         legal: "Legal",
+        rules: "Reglas",
         rulesTitle: "Reglas de contenido",
         contentRules: Rules,
         termsTitle: "Términos de uso",
-        // termsOfUse: TermsOfUse,
         copyrightPolicyTitle: "Política de derechos de autor",
-        // copyrightPolicy: CopyrightPolicy,
         securityNoticeTitle: "Aviso de seguridad",
-        // securityNotice: SecurityNotice,
         privacyPolicyTitle: "Política de privacidad",
-        // privacyPolicy: PrivacyPolicy,
-
-        // About us page
-        // aboutUs: AboutUs
     },
-
     moderation: {
         review: "Revisar proyectos",
         reports: "Reportes",
         moderation: "Moderación",
         statistics: "Estadísticas",
         authors: "Autores",
-        projectsInQueue: (count: number) => {
+        projectsInQueue: (count) => {
             if (count === 1) return "Hay 1 proyecto en la cola.";
             return `Hay ${count} proyectos en la cola.`;
         },
-        // hours will either be 24 or 48
-        projectsQueuedFor: (count: number, hours: number) => {
+        projectsQueuedFor: (count, hours) => {
             if (count === 1) return `1 proyecto ha estado en la cola por más de ${hours} horas.`;
             return `${count} proyectos han estado en la cola por más de ${hours} horas.`;
         },
-        submitted: (when: string) => `Enviado ${when}`, // eg: Submitted 4 hours ago, (the date string comes from the localized phrases defined at end of the file)
+        submitted: (when) => `Enviado ${when}`,
         viewProject: "Ver proyecto",
         awaitingApproval: "El proyecto está en la cola para aprobación",
         draft: "Borrador",
         approve: "Aprobar",
         reject: "Rechazar",
         withhold: "Suspender",
+        projectStatus: "Estado del proyecto",
+        status: {
+            draft: "Borrador",
+            processing: "En proceso",
+            approved: "Aprobado",
+            withheld: "Suspendido",
+            rejected: "Rechazado",
+            unknown: "Desconocido",
+        },
+        pageDesc: "Esta es una conversación privada con los moderadores, donde pueden contactarte si hay algún problema con este proyecto. Esta conversación solo se revisa cuando envías el proyecto para revisión.",
+        approved_msg: "Tu proyecto ha sido aprobado por los moderadores.",
+        underReview_msg: (discord_invite) => `Tu proyecto se encuentra actualmente en revisión. Si el proceso demora más de 48 horas, puedes contactarnos en nuestro [servidor de Discord](${discord_invite}).`,
+        rejected_msg: (contentRules_url) => `Tu proyecto no cumple actualmente con nuestras [reglas de contenido](${contentRules_url}) y los moderadores te han solicitado realizar cambios antes de que pueda ser aprobado. Atiende sus comentarios antes de volver a enviarlo para revisión.
+`,
+        repeatedSubmission_warning: "Los envíos repetidos sin atender los comentarios de los moderadores pueden resultar en la suspensión de tu cuenta.",
+        messages: "Mensajes",
+        resubmitDesc: {
+            _1: (project) => `Estás enviando ${project} nuevamente para que sea revisado por los moderadores.`,
+            _2: "Asegúrate de haber atendido los comentarios de los moderadores.",
+            warning: "Los envíos repetidos sin atender los comentarios de los moderadores pueden resultar en la suspensión de tu cuenta.",
+        },
     },
-
+    chatThread: {
+        messagePlaceholder: "Enviar un mensaje...",
+        noMessages: "No hay mensajes aún.",
+        replyingTo: (user) => [
+            "Respondiendo a ",
+            user,
+        ],
+        addPrivateNote: "Añadir nota privada",
+        messageDeleted: "Este mensaje fue eliminado",
+        projectSubmittedForReview: "envió el proyecto para revisión.",
+        changedProjectStatus: (oldStatus, newStatus) => [
+            "cambió el estado del proyecto de",
+            oldStatus,
+            " a",
+            newStatus,
+        ],
+        closedTheThread: "cerró la conversación.",
+        reopenedTheThread: "reabrió la conversación.",
+        reply: "Responder",
+        deleteMsg: "Eliminar mensaje",
+        sureToDeleteMsg: "¿Seguro que quieres eliminar este mensaje?",
+        threadClosedDesc: "Esta conversación está cerrada y no se pueden enviar nuevos mensajes.",
+        closeThread: "Cerrar conversación",
+        reopenThread: "Reabrir conversación",
+        permalink: "Enlace permanente",
+    },
     form: {
         login: "Iniciar sesión",
         login_withSpace: "Inicia sesión",
@@ -645,7 +741,6 @@ export default {
         showAllVersions: "Mostrar todas las versiones",
         createNew: "Crear nuevo",
     },
-
     error: {
         sthWentWrong: "¡Ups! Algo salió mal",
         errorDesc: "Algo falló. Mientras solucionamos el problema, intenta recargar la página.",
@@ -653,9 +748,15 @@ export default {
         pageNotFound: "404 | Página no encontrada.",
         pageNotFoundDesc: "Lo sentimos, no pudimos encontrar la página que estás buscando.",
         projectNotFound: "Proyecto no encontrado",
-        projectNotFoundDesc: (type: string, slug: string) => `El ${type} con el slug/ID "${slug}" no existe.`,
+        projectNotFoundDesc: (type, slug) => `El ${type} con el ID/slug "${slug}" no existe.`,
+        versionNotFound: "Versión no encontrada",
+        versionNotFoundDesc: (project, type) => `No pudimos encontrar la versión del ${type} '${project}' que estás buscando.`,
+        gotoVersionsList: "Ir a la lista de versiones",
+        oraganizationNotFound: "Organización no encontrada",
+        oraganizationNotFoundDesc: (slug) => `No existe ninguna organización con el ID/slug '${slug}'`,
+        userNotFound: "Usuario no encontrado",
+        userNotFoundDesc: (userName) => `No existe ningún usuario con el nombre/ID '${userName}'`,
     },
-
     editor: {
         heading1: "Encabezado 1",
         heading2: "Encabezado 2",
@@ -672,7 +773,7 @@ export default {
         insertLink: "Insertar enlace",
         label: "Etiqueta",
         enterLabel: "Insertar etiqueta",
-        link: "Enlace", // Noun
+        link: "Enlace",
         enterUrl: "Ingresa la URL del enlace",
         insertImage: "Insertar imagen",
         imgAlt: "Descripción (texto alternativo)",
@@ -685,10 +786,41 @@ export default {
         video: "Video",
         preview: "Vista previa",
         insert: "Insertar",
-        supportsMarkdown: (markdownPageUrl: string) => `Puedes usar el formato [Markdown](${markdownPageUrl}) aquí.`,
+        supportsMarkdown: (markdownPageUrl) => `Puedes usar el formato [Markdown](${markdownPageUrl}) aquí.`,
         keyboardShortcuts: "Atajos de teclado",
         action: "Acción",
         shortcut: "Atajo",
         toggleLineWrap: "Activar/desactivar ajuste de línea",
+    },
+    report: {
+        content: "contenido",
+        reportToMods: (itemName) => `Reportar ${itemName} a los moderadores `,
+        alreadyReported: (itemName) => `Ya reportaste ${itemName}
+`,
+        alreadyReportedDesc: (itemType) => `Ya tienes un reporte abierto para este ${itemType}. Puedes añadir más detalles a tu reporte si tienes información adicional.`,
+        backToContent: (itemType) => `Volver a ${itemType}`,
+        goToReport: "Ir al reporte",
+        whatTypeOfContent: "¿Qué tipo de contenido estás reportando?",
+        whatIsContentId: (item) => `¿Cuál es el ID del ${item.toLowerCase()}?`,
+        pleaseReport: "Por favor reporta:",
+        itsNotFor: "Este formulario no es para",
+        rulesViolation: (siteName_short, rules, tos) => [
+            `Violación de las`,
+            rules,
+            " de ${siteName_short} o",
+            tos,
+        ],
+        violationExamples: "Ejemplos incluyen contenido malicioso, spam, ofensivo, engañoso, falso o ilegal.",
+        bugReports: "Reportes de bugs",
+        dmcaTakedowns: "Eliminaciones por DMCA",
+        seeCopyrightPolicy: (copyrightPolicy) => [
+            "Lee nuestra",
+            copyrightPolicy,
+            ".",
+        ],
+        whichRuleIsBeingViolated: (siteName_short, item) => `¿Qué regla de ${siteName_short} está violando este ${item.toLowerCase()}?`,
+        violationType: {
+            spam: "Spam",
+        },
     },
 } satisfies Locale;
