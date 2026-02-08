@@ -624,7 +624,7 @@ export default {
         status: "Estado",
         support: "Soporte",
         socials: "Redes sociales",
-        about: "Acerca de",
+        about: "Sobre nosotros",
         changeTheme: "Cambiar tema",
         siteOfferedIn: (site) => `${site} ofrecido en:`,
     },
