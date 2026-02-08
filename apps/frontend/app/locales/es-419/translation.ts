@@ -907,6 +907,13 @@ export default {
         galleryDesc: (numImages, project, type, siteName_short) => `Ver ${numImages} imagen(es) del ${type} '${project}' en ${siteName_short}.`,
         changelogDesc: (project, versionsNum) => `Ver el registro de cambios de ${versionsNum} versión(es) de ${project}.`,
         versionsListDesc: (project, versionsNum) => `Lista de ${versionsNum} versión(es) de ${project}.`,
+        versionPageDesc: (o) => {
+            let string = `Descarga la versión ${o.versionNumber} de ${o.project} en ${o.siteName_short}. Es compatible con las versiones ${o.supportedGameVersions} de Cosmic Reach`;
+            if (o.loaders) string += ` en ${o.loaders}.`;
+            string += ` Publicado en ${o.publishedAt} por ${o.author}. ${o.downloads} descargas.`;
+            return string;
+            
+        },
         organization: (name) => `${name} - Organización`,
         organizationDesc: (orgDesc, name, siteName_short) => `${orgDesc} - Ver la organización ${name} en ${siteName_short}.
 `,
