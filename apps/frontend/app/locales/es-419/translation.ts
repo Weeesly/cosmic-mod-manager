@@ -127,7 +127,7 @@ export default {
         viewTransitionsDesc: "Activa transiciones (morph) al navegar entre páginas.",
         accountSecurity: "Seguridad de la cuenta",
         changePassTitle: "Cambiar la contraseña de tu cuenta",
-        addPassDesc: "Añadir una contraseña para utilizar el inicio de sesión con credenciales",
+        addPassDesc: "Añade una contraseña para utilizar el inicio de sesión con credenciales.",
         manageAuthProviders: "Gestionar proveedores de autenticación",
         manageProvidersDesc: "Añade o elimina métodos de inicio de sesión de tu cuenta.",
         removePass: "Eliminar contraseña",
