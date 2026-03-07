@@ -626,7 +626,7 @@ export default {
         socials: "Redes sociales",
         about: "Sobre nosotros",
         changeTheme: "Cambiar tema",
-        siteOfferedIn: (site) => `${site} ofrecido en:`,
+        siteOfferedIn: (site) => `${site} disponible en:`,
     },
     legal: {
         legal: "Legal",
